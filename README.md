@@ -4,7 +4,7 @@ This service is the institution-hosted authentication boundary for the Kotlin ap
 
 ## Windows Server 2019 VM
 
-Install Node.js 20+ and PostgreSQL 15+, copy `.env.example` to `.env`, and replace `snaproll-api.rgipt.ac.in` with the real DNS name if different. The Node process binds to `127.0.0.1` by default; IIS or another reverse proxy should terminate HTTPS on the VM. Register a Google OAuth **Web application** client with `GOOGLE_REDIRECT_URI` as an authorized redirect URI. The Android custom scheme is only the final handoff and is not a Google redirect URI.
+Install Node.js 20+ and a separate PostgreSQL 15+ instance for SnapRoll on port `5440`, copy `.env.example` to `.env`, and replace `snaproll-api.rgipt.ac.in` with the real DNS name if different. Do not reuse or change the existing PostgreSQL instance/port. The Node process binds to `127.0.0.1` by default; IIS or another reverse proxy should terminate HTTPS on the VM. Register a Google OAuth **Web application** client with `GOOGLE_REDIRECT_URI` as an authorized redirect URI. The Android custom scheme is only the final handoff and is not a Google redirect URI.
 
 ```powershell
 npm install
