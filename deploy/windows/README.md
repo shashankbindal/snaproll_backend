@@ -7,7 +7,7 @@ This deployment keeps the existing PostgreSQL service and database untouched. Sn
 - Node.js 20 LTS or newer
 - PostgreSQL 15+ in a separate cluster on port `5440`
 - IIS with URL Rewrite and Application Request Routing (ARR)
-- A DNS name pointing to the VM, for example `snaproll-api.rgipt.ac.in`
+- A DNS name pointing to the VM, for example `snaproll-api.sntrgipt.com`
 - An HTTPS certificate bound to that IIS site
 
 ## Backend installation
@@ -28,8 +28,8 @@ Set at least these values in `.env`:
 NODE_ENV=production
 HOST=127.0.0.1
 PORT=8443
-PUBLIC_BASE_URL=https://snaproll-api.rgipt.ac.in
-GOOGLE_REDIRECT_URI=https://snaproll-api.rgipt.ac.in/auth/google/callback
+PUBLIC_BASE_URL=https://snaproll-api.sntrgipt.com
+GOOGLE_REDIRECT_URI=https://snaproll-api.sntrgipt.com/auth/google/callback
 DATABASE_URL=postgres://snaproll:URL_ENCODED_PASSWORD@127.0.0.1:5440/snaproll
 ```
 
@@ -65,7 +65,7 @@ Set-WebConfigurationProperty -pspath 'MACHINE/WEBROOT/APPHOST' -filter 'system.w
 The public callback must be reachable at:
 
 ```text
-https://snaproll-api.rgipt.ac.in/auth/google/callback
+https://snaproll-api.sntrgipt.com/auth/google/callback
 ```
 
 Register that exact URI in the Google OAuth Web application client. The Android app's `snaproll://oauth/callback` URI is only the final app handoff and is not registered in Google Cloud.
@@ -76,7 +76,7 @@ Expose only HTTPS (normally TCP 443) to the campus/approved network. Keep TCP 54
 
 ```powershell
 Get-NetTCPConnection -State Listen | Where-Object LocalPort -in 443,5433,5440,8443
-Invoke-WebRequest https://snaproll-api.rgipt.ac.in/healthz
+Invoke-WebRequest https://snaproll-api.sntrgipt.com/healthz
 ```
 
 The PRD requires consent, biometric-template version checks, class authorization, audit records, retention/deletion jobs, and manual attendance fallback before a real classroom pilot. This repository currently provides the authentication foundation and deployment shell; those biometric workflow endpoints must be implemented and reviewed before enabling them in production.
